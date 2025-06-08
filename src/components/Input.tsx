@@ -1,14 +1,21 @@
-import { TextInput } from "react-native-gesture-handler";
+import React, { useState } from 'react';
+import { TextInput, TextInputProps } from 'react-native';
+import { styles } from '@styles/index';
 
-interface InputProps{
-    placeholder: string;
-}
-
-export default function Input({placeholder}:InputProps){
-    return(
-        <TextInput
-            placeholder={placeholder}
-            placeholderTextColor={"black"}
-        />
-    )
+export default function Input(props: TextInputProps) {
+  const [isFocused, setIsFocused] = useState(false);
+  return (
+    <TextInput
+      {...props}
+      style={isFocused ? [styles.input, styles.inputFocus, props.style] : [styles.input, props.style]}
+      onFocus={e => {
+        setIsFocused(true);
+        props.onFocus && props.onFocus(e);
+      }}
+      onBlur={e => {
+        setIsFocused(false);
+        props.onBlur && props.onBlur(e);
+      }}
+    />
+  );
 }

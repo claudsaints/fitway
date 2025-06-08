@@ -1,30 +1,35 @@
 import Container from "@components/Container";
 import { styles } from "@styles/index";
-import { View, useWindowDimensions } from "react-native";
+import { View, Image, useWindowDimensions } from "react-native";
 import LogoSvg from "@assets/logo.svg";
+
 import React from "react";
 import Title from "@components/Title";
-import Paragraph from "@components/Paragraph";
+
 import Input from "@components/Input";
 import Button from "@components/Button";
 
-export default function SignIn() {
+export default function SignUp() {
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
-  const logoSize = Math.max(400, Math.min(width * 0.4, 220));
+
+  const logoSize = Math.max(400, Math.min(width * 0.5, 220));
 
   return (
     <Container>
       <View style={[styles.container, {flexDirection: isLandscape ? 'row' : 'column', alignItems: 'center', justifyContent: 'center'}]}>
         <LogoSvg style={{ marginTop: 40 }} width={logoSize} height={logoSize} />
       </View>
-      <Paragraph style={{ textTransform: "uppercase", fontSize: 10 }}>
-        O melhor caminho para ser saudável
-      </Paragraph>
+
       <View style={[styles.vstack, {width: isLandscape ? '50%' : '100%', alignSelf: 'center'}]}>
         <Title variant="h2" style={{ marginBottom: 20 }}>
-          Acesse sua conta
+          Crie sua conta 
         </Title>
+         <Input
+          placeholder="Nome"
+          keyboardType="default"
+          autoCapitalize="none"
+        />
         <Input
           placeholder="E-mail"
           keyboardType="email-address"
@@ -36,11 +41,12 @@ export default function SignIn() {
           secureTextEntry={true}
           autoCapitalize="none"
         />
-        <Button style={{ marginTop: 16}} textStyle={{ color: "#fff"}}>Entrar</Button>
+        <Button style={{ marginTop: 16}} textStyle={{ color: "#fff"}}>Cadastrar</Button>
       </View>
-      <View style={[styles.vstack]}>
+      <View style={[styles.vstack, {width: isLandscape ? '50%' : '100%', alignSelf: 'center'}]}>
+     
         <Button style={{ marginTop: 16, backgroundColor: "transparent", borderWidth: 2, borderColor: "black"}} textStyle={{ color: "black", fontWeight: "bold" }}>
-            Criar conta
+            Voltar para o login
         </Button>
       </View>
     </Container>

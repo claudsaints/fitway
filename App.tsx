@@ -5,15 +5,13 @@ import {
   Roboto_700Bold,
 } from "@expo-google-fonts/roboto";
 
-import { MaterialIcons } from "@expo/vector-icons";
+import SignIn from "@screens/SignIn";
 
-import { Loading, Container } from "@components/index";
-import Signin from "@screens/Signin";
 
 export default function App() {
   const [fontsLoaded] = useFonts({ Roboto_400Regular, Roboto_700Bold });
 
   return (
-   <Signin/>
+   <SignIn/>
   );
 }
