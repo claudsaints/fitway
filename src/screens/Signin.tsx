@@ -7,11 +7,17 @@ import Title from "@components/Title";
 import Paragraph from "@components/Paragraph";
 import Input from "@components/Input";
 import Button from "@components/Button";
-
+import { useNavigation } from "@react-navigation/native";
+import { AuthNavigationRoutes } from '@routes/auth.routes'
 export default function SignIn() {
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
   const logoSize = Math.max(400, Math.min(width * 0.4, 220));
+  const navigation = useNavigation<AuthNavigationRoutes>();
+
+  function handleSignUp() {
+    navigation.navigate("signUp");
+  }
 
   return (
     <Container>
@@ -39,7 +45,10 @@ export default function SignIn() {
         <Button style={{ marginTop: 16}} textStyle={{ color: "#fff"}}>Entrar</Button>
       </View>
       <View style={[styles.vstack]}>
-        <Button style={{ marginTop: 16, backgroundColor: "transparent", borderWidth: 2, borderColor: "black"}} textStyle={{ color: "black", fontWeight: "bold" }}>
+        <Button 
+          style={{ marginTop: 16, backgroundColor: "transparent", borderWidth: 2, borderColor: "black"}} textStyle={{ color: "black", fontWeight: "bold" }}
+          onPress={handleSignUp}
+        >
             Criar conta
         </Button>
       </View>

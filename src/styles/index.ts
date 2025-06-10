@@ -7,8 +7,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     width: '100%',
-    backgroundColor: "#e5e5e5",
     color: "black",
+    backgroundColor: 'transparent',
     alignItems: isLandscape ? 'flex-start' : 'center',
     justifyContent: isLandscape ? 'flex-start' : 'center',
     flexDirection: isLandscape ? 'row' : 'column',
