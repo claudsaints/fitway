@@ -23,7 +23,9 @@ export default function SignUp() {
   return (
     <Container>
       <View style={[styles.container, {flexDirection: isLandscape ? 'row' : 'column', alignItems: 'center', justifyContent: 'center'}]}>
-        <LogoSvg style={{ marginTop: 40 }} width={logoSize} height={logoSize} />
+        <LogoSvg 
+          style={{ marginTop: 40 }} width={logoSize} height={logoSize} 
+        />
       </View>
 
       <View style={[styles.vstack, {width: isLandscape ? '50%' : '100%', alignSelf: 'center'}]}>
