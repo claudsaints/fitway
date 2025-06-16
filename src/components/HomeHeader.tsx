@@ -9,7 +9,8 @@ export function HomeHeader(){
        <View style={{
             padding: 30,
             margin: 0,
-            position: "absolute",
+            position: "relative",
+            width: width,
             top: 0,
             left: 0,
             right: 0,
