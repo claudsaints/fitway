@@ -1,36 +1,140 @@
-export const theme = {
+import { Platform } from "react-native";
+
+const WEB_FONT_STACK =
+  'system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
+
+export const MyThemeLight: ReactNavigation.Theme = {
+  dark: false,
   colors: {
-    green: {
-      700: "#00875F",
-      500: "#00B37E",
+    primary: '#000',
+    background: '#a1a1a1',
+    card: 'midnightblue',
+    text: '#fff',
+    border: '#e0e0e0',
+    notification: '#007bff',
+  },
+  fonts: Platform.select({
+    web: {
+      regular: {
+        fontFamily: WEB_FONT_STACK,
+        fontWeight: '400',
+      },
+      medium: {
+        fontFamily: WEB_FONT_STACK,
+        fontWeight: '500',
+      },
+      bold: {
+        fontFamily: WEB_FONT_STACK,
+        fontWeight: '600',
+      },
+      heavy: {
+        fontFamily: WEB_FONT_STACK,
+        fontWeight: '700',
+      },
     },
-    gray: {
-      700: "#121214",
-      600: "#202024",
-      500: "#29292E",
-      400: "#323238",
-      300: "#7C7C8A",
-      200: "#C4C4CC",
-      100: "#E1E1E6",
+    ios: {
+      regular: {
+        fontFamily: 'System',
+        fontWeight: '400',
+      },
+      medium: {
+        fontFamily: 'System',
+        fontWeight: '500',
+      },
+      bold: {
+        fontFamily: 'System',
+        fontWeight: '600',
+      },
+      heavy: {
+        fontFamily: 'System',
+        fontWeight: '700',
+      },
     },
-    white: "#FFFFFF",
-    red: {
-      500: "#F75A68",
+    default: {
+      regular: {
+        fontFamily: 'sans-serif',
+        fontWeight: 'normal',
+      },
+      medium: {
+        fontFamily: 'sans-serif-medium',
+        fontWeight: 'normal',
+      },
+      bold: {
+        fontFamily: 'sans-serif',
+        fontWeight: '600',
+      },
+      heavy: {
+        fontFamily: 'sans-serif',
+        fontWeight: '700',
+      },
     },
+  }),
+};
+
+export const MyThemeDark: ReactNavigation.Theme = {
+  dark: true,
+  colors: {
+    primary: '#fff',
+    background: '#000',
+    card: '#181818',
+    text: '#fff',
+    border: '#333',
+    notification: '#007bff',
   },
-  fonts: {
-    heading: "Roboto_700Bold",
-    body: "Roboto_400Regular",
-  },
-  fontSizes: {
-    xs: 12,
-    sm: 14,
-    md: 16,
-    lg: 18,
-    xl: 20,
-  },
-  sizes: {
-    14: 56,
-    36: 148,
-  },
+  fonts: Platform.select({
+    web: {
+      regular: {
+        fontFamily: WEB_FONT_STACK,
+        fontWeight: '400',
+      },
+      medium: {
+        fontFamily: WEB_FONT_STACK,
+        fontWeight: '500',
+      },
+      bold: {
+        fontFamily: WEB_FONT_STACK,
+        fontWeight: '600',
+      },
+      heavy: {
+        fontFamily: WEB_FONT_STACK,
+        fontWeight: '700',
+      },
+    },
+    ios: {
+      regular: {
+        fontFamily: 'System',
+        fontWeight: '400',
+      },
+      medium: {
+        fontFamily: 'System',
+        fontWeight: '500',
+      },
+      bold: {
+        fontFamily: 'System',
+        fontWeight: '600',
+      },
+      heavy: {
+        fontFamily: 'System',
+        fontWeight: '700',
+      },
+    },
+    default: {
+      regular: {
+        fontFamily: 'sans-serif',
+        fontWeight: 'normal',
+      },
+      medium: {
+        fontFamily: 'sans-serif-medium',
+        fontWeight: 'normal',
+      },
+      bold: {
+        fontFamily: 'sans-serif',
+        fontWeight: '600',
+      },
+      heavy: {
+        fontFamily: 'sans-serif',
+        fontWeight: '700',
+      },
+    },
+  }),
 };

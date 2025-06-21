@@ -2,7 +2,6 @@ import { createBottomTabNavigator,  BottomTabNavigationProp } from "@react-navig
 import { Home } from "@screens/Home";
 import { History } from "@screens/History";
 import { Profile } from "@screens/Profile";
-import { Exercise } from "@screens/Exercise";
 import { MaterialCommunityIcons} from "@expo/vector-icons/"; 
 import { useTheme } from "@react-navigation/native";
 import { Platform } from "react-native";
@@ -21,7 +20,7 @@ const SIZE = 30;
 export type AppNavigationRoutes = BottomTabNavigationProp<AppRoutes>;
 
 export function AppRoutes() {
-    const {colors} = useTheme();
+    const {colors, dark} = useTheme();
 
   return (
     <Navigator screenOptions={{ 
@@ -30,14 +29,12 @@ export function AppRoutes() {
         tabBarActiveTintColor: colors.primary, 
         tabBarInactiveTintColor: colors.text,
         tabBarStyle: {
-            backgroundColor: "#a1a1a1",
+            backgroundColor: dark ? colors.background : "#a1a1a1",
             borderTopWidth: 0,
             height: Platform.OS === "ios" ? 96 : 'auto',
             paddingBottom: 120,
             paddingTop: 6,
-           
         }
-
     }}> 
         <Screen name="home" component={Home} options={{
             tabBarIcon: ({color}) => {
@@ -56,11 +53,9 @@ export function AppRoutes() {
                 tabBarIcon: ({color}) => {
                     return <MaterialCommunityIcons name="account" size={SIZE} color={color} />
                 },
-        
             }}
         />
         {/* <Screen name="exercise" component={Exercise}
-            
              options={{
                 tabBarButton: (props) => null,
             }}
