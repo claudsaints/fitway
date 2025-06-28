@@ -1,4 +1,4 @@
-import Container from "@components/Container";
+import Container from "@components/Container/Container";
 import { styles } from "@styles/index";
 import { View, useWindowDimensions } from "react-native";
 import LogoSvg from "@assets/logo.svg";
@@ -6,7 +6,7 @@ import React from "react";
 import Title from "@components/Title";
 import Paragraph from "@components/Paragraph";
 import Input from "@components/Input";
-import Button from "@components/Button";
+import Button from "@components/Button/Button";
 import { useNavigation } from "@react-navigation/native";
 import { AuthNavigationRoutes } from '@routes/auth.routes'
 export default function SignIn() {

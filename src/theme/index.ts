@@ -3,15 +3,16 @@ import { Platform } from "react-native";
 const WEB_FONT_STACK =
   'system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"';
 
-export const MyThemeLight: ReactNavigation.Theme = {
+export const MyThemeLight = {
   dark: false,
   colors: {
-    primary: '#000',
+    primary: 'black',
     background: '#a1a1a1',
-    card: 'midnightblue',
-    text: '#fff',
-    border: '#e0e0e0',
+    card: '#fff',
+    text: '#777',
+    border: '#ccc',
     notification: '#007bff',
+   
   },
   fonts: Platform.select({
     web: {
@@ -52,34 +53,46 @@ export const MyThemeLight: ReactNavigation.Theme = {
     },
     default: {
       regular: {
-        fontFamily: 'sans-serif',
+        fontFamily: 'Roboto_400Regular',
         fontWeight: 'normal',
       },
       medium: {
-        fontFamily: 'sans-serif-medium',
-        fontWeight: 'normal',
+        fontFamily: 'Roboto_400Regular',
+        fontWeight: '500',
       },
       bold: {
-        fontFamily: 'sans-serif',
+        fontFamily: 'Roboto_400Regular',
         fontWeight: '600',
       },
       heavy: {
-        fontFamily: 'sans-serif',
+        fontFamily: 'Roboto_400Regular',
         fontWeight: '700',
       },
     },
   }),
 };
 
-export const MyThemeDark: ReactNavigation.Theme = {
+export const MyThemeDark = {
   dark: true,
   colors: {
     primary: '#fff',
-    background: '#000',
-    card: '#181818',
+    background: '#181818',
+    card: '#222',
     text: '#fff',
-    border: '#333',
+    border: '#444',
     notification: '#007bff',
+    button: '#fff',
+    buttonText: '#000',
+    inputBackground: '#222',
+    inputBorder: '#444',
+    inputText: '#fff',
+    inputFocusBorder: '#007bff',
+    inputFocusBackground: '#222',
+    label: '#ccc',
+    error: '#ff3333',
+    h1: '#fff',
+    h2: '#eee',
+    p: '#fff',
   },
   fonts: Platform.select({
     web: {
@@ -120,19 +133,19 @@ export const MyThemeDark: ReactNavigation.Theme = {
     },
     default: {
       regular: {
-        fontFamily: 'sans-serif',
+        fontFamily: 'Roboto_400Regular',
         fontWeight: 'normal',
       },
       medium: {
-        fontFamily: 'sans-serif-medium',
-        fontWeight: 'normal',
+        fontFamily: 'Roboto_400Regular',
+        fontWeight: '500',
       },
       bold: {
-        fontFamily: 'sans-serif',
+        fontFamily: 'Roboto_400Regular',
         fontWeight: '600',
       },
       heavy: {
-        fontFamily: 'sans-serif',
+        fontFamily: 'Roboto_400Regular',
         fontWeight: '700',
       },
     },

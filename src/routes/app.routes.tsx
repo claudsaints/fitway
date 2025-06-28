@@ -29,7 +29,7 @@ export function AppRoutes() {
         tabBarActiveTintColor: colors.primary, 
         tabBarInactiveTintColor: colors.text,
         tabBarStyle: {
-            backgroundColor: dark ? colors.background : "#a1a1a1",
+            backgroundColor: dark ? colors.background : "#fcfcfc",
             borderTopWidth: 0,
             height: Platform.OS === "ios" ? 96 : 'auto',
             paddingBottom: 120,

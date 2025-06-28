@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 import { styles } from '@styles/index';
+import { useTheme } from '@react-navigation/native';
 
 type ParagraphProps = {
   children: React.ReactNode;
@@ -8,5 +9,6 @@ type ParagraphProps = {
 };
 
 export default function Paragraph({ children, style }: ParagraphProps) {
-  return <Text style={[styles.p, style]}>{children}</Text>;
+  const { colors } = useTheme();
+  return <Text style={[styles.p, { color: colors.p }, style]}>{children}</Text>;
 }

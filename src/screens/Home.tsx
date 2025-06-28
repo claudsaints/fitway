@@ -1,7 +1,7 @@
-import Container from "@components/Container";
-import { ExerciseCard } from "@components/ExerciseCard";
-import { Group } from "@components/Group";
-import { HomeHeader } from "@components/HomeHeader";
+import Container from "@components/Container/Container";
+import { ExerciseCard } from "@components/Cards/ExerciseCard";
+import { Group } from "@components/Cards/Group";
+import { HomeHeader } from "@components/Headers/HomeHeader";
 import { styles } from "@styles/index";
 import { useState } from "react";
 import { View, FlatList, useWindowDimensions, Text } from "react-native";
@@ -10,6 +10,26 @@ import { useTheme } from "@react-navigation/native";
 export function Home() {
   const { colors } = useTheme();
   const [activeGroup, setActiveGroup] = useState<string | null>(null);
+  const [exercicios,setExercicios] = useState([{
+    name: "flexão",
+    description: "exercicio calistenico"
+  },
+  {
+    name: "remada",
+    description: "exercicio calistenico"
+  },{
+    name: "flexãos",
+    description: "exercicio calistenico"
+  },
+{
+    name: "flexãoss",
+    description: "exercicio calistenico"
+  },
+{
+    name: "flexsãos",
+    description: "exercicio calistenico"
+  }]);
+
   const [group, setGroup] = useState<string[]>([
     "costas",
     "ombro",
@@ -28,9 +48,10 @@ export function Home() {
           data={group}
           showsHorizontalScrollIndicator={false}
           keyExtractor={item => item}
-          renderItem={({ item }) => (
+          renderItem={({ item,index }) => (
             <Group
               name={item}
+              key={index}
               isActive={activeGroup === item}
               onPress={() => setActiveGroup(item)}
               themeColors={colors}
@@ -40,14 +61,25 @@ export function Home() {
           contentContainerStyle={{ paddingHorizontal: 12 }}
         />
         <View style={{height: 80, flexDirection: "row", paddingHorizontal: 22, backgroundColor: colors.background, justifyContent: "space-between", alignItems: "center", width: width}}>
-          <Text style={{ color: colors.text }}>Exercícios</Text>
-          <Text style={{ color: colors.text }}>3</Text>
+          <Text style={{ color: "black",fontWeight:"500" }}>Exercícios</Text>
+          <Text style={{ color: "black",fontWeight:"500" }}>{exercicios.length}</Text>
         </View>
-        <View style={{flex: 1}}>
-          <ExerciseCard />
-          <ExerciseCard />
-          <ExerciseCard />
-        </View>
+        <FlatList
+          data={exercicios}
+          keyExtractor={item => item.name}
+          showsVerticalScrollIndicator={false}
+           contentContainerStyle={{ paddingBottom: 50 }}
+          renderItem={({item, index}) => (
+            <ExerciseCard
+                key={index}
+                nome={item.name}
+                descricao={item.description}
+            
+            />
+          )}
+        
+        />
+        
       </Container>
     </>
   );
