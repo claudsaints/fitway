@@ -6,7 +6,7 @@ export function HistoryCard(){
     const theme = useTheme();
     const {width, height}= useWindowDimensions();
     return(
-        <View style={{  backgroundColor: "white", alignItems: "center", flexDirection: "row", padding: 3, gap: 16,height: 100, width: width - 10, marginBottom: 10, borderRadius: 12 }}>
+        <View style={{  backgroundColor: "white", alignItems: "center", flexDirection: "row", padding: 3, gap: 16,height: 100, marginBottom: 10, borderRadius: 12 , width: "auto"}}>
             <View style={{ flex: 1,flexDirection: "column", gap: 10, padding: 10}}>
                 <Text  style={{ textTransform: "uppercase"} }>Nome</Text>
                 <Text style={{ textTransform: "uppercase"} }>Descricao</Text>

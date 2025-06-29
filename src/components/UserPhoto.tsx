@@ -3,17 +3,21 @@ import { Image } from "react-native"
 
 type IImageProps = {
     size: number;
+    radius?: number;
+    src?: string;
+    alt?: string;
 }
 
-export function UserPhoto({size, ...rest }: IImageProps){
+export function UserPhoto({size, radius, src,alt, ...rest }: IImageProps){
     return(
         <Image
             height={size}
             width={size}
-            src="https://github.com/claudsaints.png"
+            src={ src ? src :"https://github.com/claudsaints.png"}
+            alt={alt ? alt : "image"}
             
             style={{
-                borderRadius: 24,
+                borderRadius: radius? radius : 24,
                 backgroundColor:"#fff"
             }}
 

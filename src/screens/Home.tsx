@@ -54,6 +54,7 @@ export function Home() {
               key={index}
               isActive={activeGroup === item}
               onPress={() => setActiveGroup(item)}
+    
               themeColors={colors}
             />
           )}

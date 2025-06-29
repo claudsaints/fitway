@@ -22,6 +22,7 @@ export function Group({ name, isActive, onPress, themeColors }: IGroup) {
         justifyContent: "center",
       }}
       onPress={onPress}
+      
 
     >
       <Text style={{ color: isActive ? "white": "black" }}>{name}</Text>

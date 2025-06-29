@@ -7,14 +7,14 @@ export const MyThemeLight = {
   dark: false,
   colors: {
     primary: 'black',
-    background: '#a1a1a1',
+    background: '#e1e1e1',
     card: '#fff',
     text: '#777',
     border: '#ccc',
     notification: '#007bff',
    
   },
-  fonts: Platform.select({
+   fonts: Platform.select({
     web: {
       regular: {
         fontFamily: WEB_FONT_STACK,
