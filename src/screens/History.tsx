@@ -20,7 +20,10 @@ export function History() {
 const {width} = useWindowDimensions();
   return (  
     <>
-      <ScreenHeader title="ssda"/>
+       <ScreenHeader>
+        <Text>Historico</Text>
+      </ScreenHeader>
+
       <Container>
 
        <SectionList

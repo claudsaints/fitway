@@ -15,8 +15,8 @@ export default function Title({ children, variant = 'h1', style }: TitleProps) {
     <Text
       style={[
         variant === 'h1'
-          ? [styles.h1, { color: colors.h1 }]
-          : [styles.h2, { color: colors.h2 }],
+          ? [styles.h1]
+          : [styles.h2],
         style,
       ]}
     >

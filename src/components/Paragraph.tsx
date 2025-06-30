@@ -10,5 +10,5 @@ type ParagraphProps = {
 
 export default function Paragraph({ children, style }: ParagraphProps) {
   const { colors } = useTheme();
-  return <Text style={[styles.p, { color: colors.p }, style]}>{children}</Text>;
+  return <Text style={[styles.p, { color: "white" }, style]}>{children}</Text>;
 }

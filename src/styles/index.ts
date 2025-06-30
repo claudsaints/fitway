@@ -25,8 +25,21 @@ const styles = StyleSheet.create({
     flexDirection: 'column',
     width: '100%', 
   },
+  fRow: {
+    flex: 1,
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+    flexDirection: 'row',
+    width: '100%', 
+  },
+  justifyAlign: {
+    alignContent: 'center',
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   input: {
-    width: '90%', // ocupa 100% da largura da view
+    width: '90%', 
     height: 48,
     borderRadius: 8,
     backgroundColor: '#fff',
@@ -38,9 +51,9 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
   },
   inputFocus: {
-    borderColor: '#007bff', // cor de destaque ao focar
+    borderColor: '#007bff', 
     borderWidth: 2,
-    backgroundColor: '#f0f8ff', // leve destaque de fundo
+    backgroundColor: '#f0f8ff', 
     shadowColor: '#007bff',
     shadowOffset: { width: 0, height: 2 },
     shadowOpacity: 0.2,
@@ -94,6 +107,9 @@ const styles = StyleSheet.create({
     color: '#333',
     marginBottom: 8,
     textAlign: 'center',
+  },
+  geralText: {
+    color: "white"
   }
 
 });

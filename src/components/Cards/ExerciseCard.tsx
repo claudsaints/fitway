@@ -1,4 +1,4 @@
-import { View, Image, Pressable, Text } from "react-native";
+import { View, Image, Pressable, Text, PressableProps } from "react-native";
 import Button from "../Button/Button";
 import { styles } from "@styles/index";
 import { Entypo } from "@expo/vector-icons";
@@ -7,12 +7,15 @@ import { useTheme } from "@react-navigation/native";
 interface IExerciseCard{
     nome: string;
     descricao: string;
+    onPress: () => void;
+    
 }
 
-export function ExerciseCard({nome, descricao}:IExerciseCard) {
+export function ExerciseCard({nome, descricao, onPress}:IExerciseCard) {
     const { colors } = useTheme();
     return (
         <Pressable
+            onPress={onPress}
             style={{ backgroundColor: colors.card, height: 120, width: 350, marginBottom: 10, borderRadius: 12 }}
         >
             <View style={{ flex: 1, alignItems: "center", flexDirection: "row", padding: 12, gap: 16 }}>
