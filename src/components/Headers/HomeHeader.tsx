@@ -4,18 +4,15 @@ import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { ScreenHeader } from "./ScreenHeader";
 import { useAuth } from "@hooks/useAuth";
-
+import defaultProfileImage from "@assets/background_person.png";
 
 export function HomeHeader() {
-  const { width, height } = useWindowDimensions();
-  const isLandscape = width > height;
   const theme = useTheme();
+  
   const {user,signOut} = useAuth();
-
+  
+  const imageUrl = user.avatar ? user.avatar : defaultProfileImage;
  
-
-  const imageUrl = user.avatar   ?  user.avatar : "@assets/background_person.png";
-
 
   return (
     <ScreenHeader>

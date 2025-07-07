@@ -14,6 +14,8 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import { validadeSchemaSignIn } from "validations/AuthValidation";
 import { useAuth } from "@hooks/useAuth";
 import { AppError } from "@utils/AppError";
+import Loading from "@components/Loading";
+
 type FormData = {
   email: string;
   password: string;
@@ -26,6 +28,7 @@ export default function SignIn() {
   const navigation = useNavigation<AuthNavigationRoutes>();
 
   const { signIn } = useAuth();
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const { control, handleSubmit } = useForm({
     defaultValues: {
@@ -36,7 +39,7 @@ export default function SignIn() {
   });
 
   async function handleSignIn({ email, password }: FormData) {
-    console.log("Cheou no sign in", password);
+    setIsLoading(true);
     try {
       await signIn(email, password);
     } catch (error) {
@@ -47,6 +50,8 @@ export default function SignIn() {
         : "Não foi fazer login. Tente novamente mais tarde";
 
       Alert.alert("Erro", title);
+    } finally {
+      setIsLoading(false);
     }
   }
 
@@ -64,7 +69,7 @@ export default function SignIn() {
       >
         <LogoSvg style={{ marginTop: 40 }} width={logoSize} height={logoSize} />
       </View>
-      <Paragraph style={{ textTransform: "uppercase", fontSize: 10 }}>
+      <Paragraph style={{ textTransform: "uppercase", fontSize: 10 , color: "black"}}>
         O melhor caminho para ser saudável
       </Paragraph>
       <View
@@ -110,8 +115,9 @@ export default function SignIn() {
           onPress={handleSubmit(handleSignIn)}
           style={{ marginTop: 16 }}
           textStyle={{ color: "#fff" }}
+          disabled={isLoading}
         >
-          Entrar
+          {isLoading ? <Loading /> : "Entrar"}
         </Button>
       </View>
       <View style={[styles.vstack]}>

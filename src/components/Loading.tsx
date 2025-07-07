@@ -6,7 +6,7 @@ import { Container } from ".";
 export default function Loading(){
     return(
         <Container >
-            <ActivityIndicator/>
+            <ActivityIndicator color={"#fff"}/>
         </Container>
     );
 }

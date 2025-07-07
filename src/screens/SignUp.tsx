@@ -14,6 +14,8 @@ import { api } from "@services/index";
 import { AppError } from "@utils/AppError";
 import { validateSchemaSignUp } from "validations/AuthValidation";
 import { useAuth } from "@hooks/useAuth";
+import Paragraph from "@components/Paragraph";
+import Loading from "@components/Loading";
 
 type FormData = {
   name: string;
@@ -24,6 +26,7 @@ type FormData = {
 
 export default function SignUp() {
   const { signIn } = useAuth();
+  const [isLoading, setIsLoading] = React.useState(false);
 
   const {
     control,
@@ -50,6 +53,7 @@ export default function SignUp() {
   }
 
   const handlerSignUp = async ({ email, name, password }: FormData) => {
+    setIsLoading(true);
     try {
       await api.post("/users", { name, email, password });
 
@@ -62,6 +66,8 @@ export default function SignUp() {
         : "Não foi possivel cadastrar. Tente novamente mais tarde";
 
       Alert.alert("Erro", title);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -80,8 +86,9 @@ export default function SignUp() {
         ]}
       >
         <LogoSvg style={{ marginTop: 40 }} width={logoSize} height={logoSize} />
+        
       </View>
-
+              
       <View
         style={[
           styles.vstack,
@@ -154,8 +161,9 @@ export default function SignUp() {
           onPress={handleSubmit(handlerSignUp, handlerError)}
           style={{ marginTop: 16 }}
           textStyle={{ color: "#fff" }}
+          disabled={isLoading}
         >
-          Cadastrar
+          {isLoading ? <Loading /> : "Cadastrar"}
         </Button>
       </View>
 

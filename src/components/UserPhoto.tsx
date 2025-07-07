@@ -1,5 +1,5 @@
 
-import { Image } from "react-native"
+import { Image as ExpoImage } from "expo-image";
 
 
 type IImageProps = {
@@ -10,17 +10,21 @@ type IImageProps = {
 }
 
 export function UserPhoto({size, radius, src,alt, ...rest }: IImageProps){
+
+ 
+
+
     return(
-        <Image
-            height={size}
-            width={size}
-            src={  src ? src :"https://github.com/claudsaints.png"}
+        <ExpoImage
+            source={  src ? src :"https://github.com/claudsaints.png"}
             alt={alt ? alt : "image"}
             
             
             style={{
                 borderRadius: radius? radius : 24,
-                backgroundColor:"#6fa2dd"
+                backgroundColor:"#fff",
+                width: size,
+                height: size,
             }}
 
             {...rest}

@@ -27,16 +27,16 @@ export function ExerciseCard({ item , onPress}:IExerciseCard) {
                         alt={item.name}
                         height={80}
                         width={80}
-                        style={{ backgroundColor: colors.primary, borderRadius: 12 }}
+                        style={{ backgroundColor: "transparent", borderRadius: 12 }}
                     />
                 </View>
                 <View style={{ flex: 1 }}>
-                    <Text style={{ textTransform: "uppercase", color: colors.text }}>
+                    <Text style={{ color: colors.primary, fontWeight: "500" }}>
                         {item.name}
                     </Text>
                  
                 </View>
-                <Entypo name="chevron-thin-right" color={colors.text} />
+                <Entypo name="chevron-thin-right" color={colors.primary} size={18} />
             </View>
         </Pressable>
     );

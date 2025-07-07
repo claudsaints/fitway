@@ -16,8 +16,24 @@ interface ExerciseDTO {
   updated_at: string;
 }
 
+interface HistoryByDayDTO  {
+  title: string;
+  data: HistoryDTO[];
+}
+
+interface HistoryDTO  {
+  id: string;
+  name: string;
+  group: string;
+  hour: string;
+  created_at: string;
+}
+
+
 
 export {
     UserDTO,
-    ExerciseDTO
+    ExerciseDTO,
+    HistoryByDayDTO,
+    HistoryDTO
 }
