@@ -1,6 +1,7 @@
 
 import { Image } from "react-native"
 
+
 type IImageProps = {
     size: number;
     radius?: number;
@@ -13,12 +14,13 @@ export function UserPhoto({size, radius, src,alt, ...rest }: IImageProps){
         <Image
             height={size}
             width={size}
-            src={ src ? src :"https://github.com/claudsaints.png"}
+            src={  src ? src :"https://github.com/claudsaints.png"}
             alt={alt ? alt : "image"}
+            
             
             style={{
                 borderRadius: radius? radius : 24,
-                backgroundColor:"#fff"
+                backgroundColor:"#6fa2dd"
             }}
 
             {...rest}

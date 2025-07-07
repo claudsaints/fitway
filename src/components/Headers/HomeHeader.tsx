@@ -1,13 +1,22 @@
-import { View, Text, useWindowDimensions } from "react-native";
+import { View, Text, useWindowDimensions, Pressable } from "react-native";
 import { UserPhoto } from "@components/UserPhoto";
 import { MaterialIcons } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
 import { ScreenHeader } from "./ScreenHeader";
+import { useAuth } from "@hooks/useAuth";
+
 
 export function HomeHeader() {
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
   const theme = useTheme();
+  const {user,signOut} = useAuth();
+
+ 
+
+  const imageUrl = user.avatar   ?  user.avatar : "@assets/background_person.png";
+
+
   return (
     <ScreenHeader>
       <View
@@ -19,7 +28,7 @@ export function HomeHeader() {
         }}
       >
         <View>
-          <UserPhoto radius={30} size={60} />
+          <UserPhoto src={imageUrl} radius={30} size={60} />
         </View>
         <View
           style={{
@@ -39,14 +48,15 @@ export function HomeHeader() {
             Olá,
           </Text>
           <Text style={{ fontSize: 16, textAlign: "center", color: "#fff" }}>
-            Claud
+            {user.name}
           </Text>
         </View>
-        <View
+        <Pressable
+        onPress={signOut}
           style={{ flex: 1, alignItems: "flex-end", justifyContent: "center" }}
         >
           <MaterialIcons name="logout" color={"#fff"} size={30} />
-        </View>
+        </Pressable>
       </View>
     </ScreenHeader>
   );

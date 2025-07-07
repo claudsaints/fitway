@@ -1,55 +1,133 @@
 import Container from "@components/Container/Container";
 import { styles } from "@styles/index";
-import { View, useWindowDimensions } from "react-native";
+import { Alert, View, useWindowDimensions } from "react-native";
 import LogoSvg from "@assets/logo.svg";
-import React from "react";
+import React, { use } from "react";
 import Title from "@components/Title";
 import Paragraph from "@components/Paragraph";
 import Input from "@components/Input";
 import Button from "@components/Button/Button";
 import { useNavigation } from "@react-navigation/native";
-import { AuthNavigationRoutes } from '@routes/auth.routes'
+import { AuthNavigationRoutes } from "@routes/auth.routes";
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import { validadeSchemaSignIn } from "validations/AuthValidation";
+import { useAuth } from "@hooks/useAuth";
+import { AppError } from "@utils/AppError";
+type FormData = {
+  email: string;
+  password: string;
+};
+
 export default function SignIn() {
   const { width, height } = useWindowDimensions();
   const isLandscape = width > height;
   const logoSize = Math.max(400, Math.min(width * 0.4, 220));
   const navigation = useNavigation<AuthNavigationRoutes>();
 
-  function handleSignUp() {
-    navigation.navigate("signUp");
+  const { signIn } = useAuth();
+
+  const { control, handleSubmit } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+    resolver: yupResolver(validadeSchemaSignIn),
+  });
+
+  async function handleSignIn({ email, password }: FormData) {
+    console.log("Cheou no sign in", password);
+    try {
+      await signIn(email, password);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+
+      const title = isAppError
+        ? error.message
+        : "Não foi fazer login. Tente novamente mais tarde";
+
+      Alert.alert("Erro", title);
+    }
   }
 
   return (
     <Container>
-      <View style={[styles.container, {flexDirection: isLandscape ? 'row' : 'column', alignItems: 'center', justifyContent: 'center'}]}>
+      <View
+        style={[
+          styles.container,
+          {
+            flexDirection: isLandscape ? "row" : "column",
+            alignItems: "center",
+            justifyContent: "center",
+          },
+        ]}
+      >
         <LogoSvg style={{ marginTop: 40 }} width={logoSize} height={logoSize} />
       </View>
       <Paragraph style={{ textTransform: "uppercase", fontSize: 10 }}>
         O melhor caminho para ser saudável
       </Paragraph>
-      <View style={[styles.vstack, {width: isLandscape ? '50%' : '100%', alignSelf: 'center'}]}>
+      <View
+        style={[
+          styles.vstack,
+          { width: isLandscape ? "50%" : "100%", alignSelf: "center" },
+        ]}
+      >
         <Title variant="h2" style={{ marginBottom: 20 }}>
           Acesse sua conta
         </Title>
-        <Input
-          placeholder="E-mail"
-          keyboardType="email-address"
-          autoCapitalize="none"
+        <Controller
+          control={control}
+          name="email"
+          render={({ field: { onChange, value } }) => (
+            <Input
+              placeholder="E-mail"
+              keyboardType="email-address"
+              autoCapitalize="none"
+              onChangeText={onChange}
+              value={value}
+            />
+          )}
         />
-        <Input
-          placeholder="Senha"
-          keyboardType="visible-password"
-          secureTextEntry={true}
-          autoCapitalize="none"
+
+        <Controller
+          control={control}
+          name="password"
+          render={({ field: { onChange, value } }) => (
+            <Input
+              placeholder="Senha"
+              secureTextEntry={true}
+              autoCapitalize="none"
+              onChangeText={onChange}
+              value={value}
+              returnKeyType="send"
+              onSubmitEditing={handleSubmit(handleSignIn)}
+            />
+          )}
         />
-        <Button style={{ marginTop: 16}} textStyle={{ color: "#fff"}}>Entrar</Button>
+
+        <Button
+          onPress={handleSubmit(handleSignIn)}
+          style={{ marginTop: 16 }}
+          textStyle={{ color: "#fff" }}
+        >
+          Entrar
+        </Button>
       </View>
       <View style={[styles.vstack]}>
-        <Button 
-          style={{ marginTop: 16, backgroundColor: "transparent", borderWidth: 2, borderColor: "black"}} textStyle={{ color: "black", fontWeight: "bold" }}
-          onPress={handleSignUp}
+        <Button
+          style={{
+            marginTop: 16,
+            backgroundColor: "transparent",
+            borderWidth: 2,
+            borderColor: "black",
+          }}
+          textStyle={{ color: "black", fontWeight: "bold" }}
+          onPress={() => {
+            navigation.navigate("signUp");
+          }}
         >
-            Criar conta
+          Criar conta
         </Button>
       </View>
     </Container>
