@@ -26,7 +26,9 @@ type AppRoutes = {
 
 type NestedScreens = {
   home_main: undefined;
-  exercise: undefined;
+  exercise: {
+    exerciseId: string
+  };
 };
 
 const SIZE = 30;

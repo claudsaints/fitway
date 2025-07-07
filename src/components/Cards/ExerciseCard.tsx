@@ -3,16 +3,18 @@ import Button from "../Button/Button";
 import { styles } from "@styles/index";
 import { Entypo } from "@expo/vector-icons";
 import { useTheme } from "@react-navigation/native";
+import { ExerciseDTO } from "@types";
+import { api } from "@services/index";
 
 interface IExerciseCard{
-    nome: string;
-    descricao: string;
+    item: ExerciseDTO
     onPress: () => void;
     
 }
 
-export function ExerciseCard({nome, descricao, onPress}:IExerciseCard) {
+export function ExerciseCard({ item , onPress}:IExerciseCard) {
     const { colors } = useTheme();
+    console.log(item)
     return (
         <Pressable
             onPress={onPress}
@@ -21,8 +23,8 @@ export function ExerciseCard({nome, descricao, onPress}:IExerciseCard) {
             <View style={{ flex: 1, alignItems: "center", flexDirection: "row", padding: 12, gap: 16 }}>
                 <View>
                     <Image
-                        src="https://static1.minhavida.com.br/articles/73/86/d3/46/lio-putrashutterstock-orig-1.jpg"
-                        alt="remada unilateral"
+                        src={item.thumb? `${api.defaults.baseURL}/exercise/thumb/${item.thumb}` : "https://static1.minhavida.com.br/articles/73/86/d3/46/lio-putrashutterstock-orig-1.jpg"}
+                        alt={item.name}
                         height={80}
                         width={80}
                         style={{ backgroundColor: colors.primary, borderRadius: 12 }}
@@ -30,11 +32,9 @@ export function ExerciseCard({nome, descricao, onPress}:IExerciseCard) {
                 </View>
                 <View style={{ flex: 1 }}>
                     <Text style={{ textTransform: "uppercase", color: colors.text }}>
-                        {nome}
+                        {item.name}
                     </Text>
-                    <Text numberOfLines={2} style={{ color: colors.text }}>
-                        {descricao}
-                    </Text>
+                 
                 </View>
                 <Entypo name="chevron-thin-right" color={colors.text} />
             </View>

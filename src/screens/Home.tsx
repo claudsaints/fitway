@@ -2,52 +2,73 @@ import Container from "@components/Container/Container";
 import { ExerciseCard } from "@components/Cards/ExerciseCard";
 import { Group } from "@components/Cards/Group";
 import { HomeHeader } from "@components/Headers/HomeHeader";
-import { styles } from "@styles/index";
-import { useState } from "react";
-import { View, FlatList, useWindowDimensions, Text } from "react-native";
+import { useCallback, useEffect, useState } from "react";
+import { View, FlatList, useWindowDimensions, Text, Alert } from "react-native";
 import { useNavigation, useTheme } from "@react-navigation/native";
-import { AppNavigationRoutes, AppNestedRoutes } from "@routes/app.routes";
+import { AppNestedRoutes } from "@routes/app.routes";
+import { api } from "@services/index";
+import { AppError } from "@utils/AppError";
+import { ExerciseDTO } from "@types";
 
 export function Home() {
   const { colors } = useTheme();
-  const [activeGroup, setActiveGroup] = useState<string | null>(null);
-  const [exercicios, setExercicios] = useState([
-    {
-      name: "flexão",
-      description: "exercicio calistenico",
-    },
-    {
-      name: "remada",
-      description: "exercicio calistenico",
-    },
-    {
-      name: "flexãos",
-      description: "exercicio calistenico",
-    },
-    {
-      name: "flexãoss",
-      description: "exercicio calistenico",
-    },
-    {
-      name: "flexsãos",
-      description: "exercicio calistenico",
-    },
-  ]);
+  const [activeGroup, setActiveGroup] = useState<string | null>('antebraço');
+  const [exercicios, setExercicios] = useState<ExerciseDTO[]>([]);
 
-  const [group, setGroup] = useState<string[]>([
-    "costas",
-    "ombro",
-    "perna",
-    "cabeça",
-  ]);
+  const [group, setGroup] = useState<string[]>([]);
 
   const { width } = useWindowDimensions();
 
   const navigation = useNavigation<AppNestedRoutes>();
 
-  const handlerExerciseDetails = () => {
-    navigation.navigate("exercise");
+  const handlerExerciseDetails = (exerciseId: string) => {
+    navigation.navigate("exercise", { exerciseId });
   };
+
+  const fetchGroups = async () => {
+    try {
+      const res = await api.get("/groups");
+
+      setGroup(res.data);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+
+      const title = isAppError
+        ? error.message
+        : "Não foi possivel carregar os grupos, tente novamente mais tarde";
+
+      Alert.alert("Erro", title);
+    }
+  };
+
+  const fetchExerciseByGroup = async () => {
+    try {
+      const res = await api.get(`/exercises/bygroup/${activeGroup}`);
+      setExercicios(res.data);
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+
+      const title = isAppError
+        ? error.message
+        : "Não foi possivel carregar os grupos, tente novamente mais tarde";
+
+      Alert.alert("Erro", title);
+    } finally {
+    }
+  };
+
+
+  useEffect(() => {
+    fetchGroups();
+  }, [])
+
+
+
+  useEffect(() => {
+
+      fetchExerciseByGroup()
+   
+  },[activeGroup])
 
   return (
     <>
@@ -99,10 +120,9 @@ export function Home() {
           contentContainerStyle={{ paddingBottom: 50 }}
           renderItem={({ item, index }) => (
             <ExerciseCard
-              onPress={handlerExerciseDetails}
+              onPress={() => handlerExerciseDetails(item.id)}
               key={index}
-              nome={item.name}
-              descricao={item.description}
+              item={item}
             />
           )}
         />
