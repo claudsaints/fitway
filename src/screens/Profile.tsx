@@ -25,6 +25,7 @@ import {
 import { Controller, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Loading from "@components/Loading";
+import defaulUserPhotoImg from "@assets/background_person.png"
 
 export function Profile() {
   const SIZE = 150;
@@ -32,9 +33,7 @@ export function Profile() {
 
   const [imageLoading, setImageLoading] = useState(false);
   const [isUpdating, setIsUpdating] = useState(false);
-  const [userPhoto, setUserPhoto] = useState<string>(
-    "https://github.com/claudsaints.png"
-  );
+  const [userPhoto, setUserPhoto] = useState<string>();
 
   const { width } = useWindowDimensions();
 
@@ -52,7 +51,7 @@ export function Profile() {
       password: "",
       confirm_password: ""
     },
-    resolver: yupResolver(validateProfileSchema) as any // força tipagem para evitar erro do resolver
+    resolver: yupResolver(validateProfileSchema) as any 
   });
 
   const handlerUserPhotoSelect = async () => {
@@ -80,10 +79,49 @@ export function Profile() {
           return;
         }
 
-        setUserPhoto(photoSelected.assets[0].uri);
+        
+        const fileExtension = photoSelected.assets[0].uri.split('.').pop()
+
+        const photoFile = {
+          name: `${user.name}.${fileExtension}`
+            .replaceAll(' ', '')
+            .toLowerCase(),
+          uri: photoSelected.assets[0].uri,
+          type: `${photoSelected.assets[0].type}/${fileExtension}`,
+        } as any
+
+        const userPhotoUploadForm = new FormData()
+        
+        const avatarUpdtedResponse = await api.patch(
+          '/users/avatar',
+          userPhotoUploadForm,
+          {
+            headers: {
+              'Content-Type': 'multipart/form-data',
+            },
+          },
+        );
+
+        const userUpdated = user ;
+
+
+
+        userUpdated.avatar = avatarUpdtedResponse.data.avatar;
+
+        await updateUserProfile(userUpdated);
+
+        Alert.alert("Perfil Atualizado", "Sua foto de perfil foi atualizada com sucesso");
       }
+
     } catch (error) {
-      console.log(error);
+          const isAppError = error instanceof AppError;
+
+      const title = isAppError
+        ? error.message
+        : "Não foi possivel atualizar a imagem.";
+
+      Alert.alert("Erro", title);
+    
     } finally {
       setImageLoading(false);
     }
@@ -98,7 +136,7 @@ export function Profile() {
       await api.put("/users", data);
       await updateUserProfile(userUpdated);
 
-      Alert.alert("Perfil Atualizado", "Seu perfil foi atualizado com sucesso");
+      Alert.alert("Perfil Atualizado", "Seus dados de perfil foram atualizados com sucesso");
     } catch (error) {
       const isAppError = error instanceof AppError;
 
@@ -135,7 +173,9 @@ export function Profile() {
             ) : (
               <View style={styles.vstack}>
                 <UserPhoto
-                  src={userPhoto}
+                  src={ user.avatar
+                  ? { uri: `${api.defaults.baseURL}/avatar/${user.avatar}` }
+                  : defaulUserPhotoImg }
                   radius={80}
                   size={SIZE}
                   alt="profile_image"

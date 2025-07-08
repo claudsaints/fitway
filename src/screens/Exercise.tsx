@@ -52,6 +52,23 @@ export function Exercise() {
     }
   };
 
+  const handleExerciseHistoryRegister = async () => {
+    try {
+      setSendingRegister(true);
+
+      await api.post('/history', { exercise_id: exerciseId });
+      Alert.alert("Sucesso", "Exercício marcado como realizado!");
+    } catch (error) {
+      const isAppError = error instanceof AppError;
+      const title = isAppError
+        ? error.message
+        : "Não foi possivel fazer registro do exercício";
+      Alert.alert("Erro", title);
+    } finally {
+      setSendingRegister(false);  
+    }
+  }
+
   const handlerReturn = () => {
     navigation.navigate("home_main");
   };
@@ -150,6 +167,7 @@ export function Exercise() {
               <Button
                 textStyle={{ color: "white", fontSize: 12 }}
                 disabled={sendingRegister}
+                onPress={handleExerciseHistoryRegister}
               >
                 {sendingRegister ? <Loading /> : "Marcar como Realizado"}
               </Button>
